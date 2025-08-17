@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix Clone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Logo Hover Colorful Glow */
+    .logo-hover:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 8px red);
+              
+      transition: all 0.3s ease;
+    }
+
+    /* Email Input Focus Glow */
+    .input-focus:focus {
+      border-color: red;
+      box-shadow: 0 0 10px red;
+      outline: none;
+      transition: 0.3s ease;
+    }
+
+    /* Section Styling */
+    .item, .item2 {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-image: url(./black.jpeg);
+      background-size: cover;
+      color: white;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    /* Text Styling */
+    .text2 {
+      flex: 1;
+      min-width: 280px;
+    }
+    .text2 h1 {
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .text2 p {
+      font-size: clamp(1rem, 1.5vw, 1.25rem);
+      line-height: 1.5;
+    }
+
+    /* Images */
+    .image, .image2 {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .image img, .image2 img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Wrapper for TV & video */
+    .wrapper {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+    }
+    .wrapper .tv-frame {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .wrapper .video {
+      position: absolute;
+      top: 20.5%;
+      left: 13.5%;
+      width: 73.5%;
+      height: 59%;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
+    /* TV Section Styling */
+    .tv-section {
+      padding: 10px 10px;
+      background-color: black;
+      color: white;
+      margin-bottom: 200px;
+    }
+    .tv-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .tv-text {
+      flex: 1 1 400px;
+      padding: 20px;
+      margin-top: 2px;
+    }
+    .tv-text h1 {
+      font-size: 3rem;
+      margin-bottom: 40px;
+      font-weight: bold;
+      margin-top: 2px;
+    }
+    .tv-text p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+    .tv-container {
+      position: relative;
+      flex: 1 1 500px;
+      padding: 20px;
+    }
+    .tv-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .tv-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px; /* optional: control max TV size */
+  margin: auto;
+}
+
+.tv-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.tv-video {
+  position: absolute;
+  top: 23%;
+  left: 16%;
+  width: 67%;
+  height: 50%;
+  object-fit: cover;
+}
+
+/* Responsive - keeps the same alignment ratio */
+@media (max-width: 1024px) {
+  .tv-video {
+    top: 23%;
+    left: 16%;
+    width: 67%;
+    height: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .tv-video {
+    top: 23%;
+    left: 16%;
+    width: 67%;
+    height: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .tv-video {
+    top: 23%;
+    left: 16%;
+    width: 67%;
+    height: 50%;
+  }
+}
+
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  /* margin-bottom: 900px; */
+  margin-top: -170px;
+}
+
+.carousel-container h2 {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 1.8em;
+  margin-left: 20px;
+  margin-bottom: 50px;
+  color: white;
+  position: relative;
+  
+  /* Animation on load */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSlideUp 0.8s ease forwards;
+
+  /* Smooth transition for hover effects */
+  transition: transform 0.3s ease;
+}
+
+/* Underline effect */
+.carousel-container h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px; /* Gap below text */
+  width: 0%;
+  height: 3px;
+  background-color: red;
+  transition: width 0.3s ease;
+}
+
+/* Hover effect */
+.carousel-container h2:hover {
+  transform: scale(1.05);
+}
+
+.carousel-container h2:hover::after {
+  width: 10%; /* Full underline on hover */
+}
+
+/* Keyframes for entry animation */
+@keyframes fadeSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.carousel-track {
+  display: flex;
+  gap: 16px;
+  transition: transform 0.4s ease-in-out;
+  
+  margin: 0 80px; /* Adds space on both sides of track */
+}
+
+
+.carousel-item {
+  position: relative;
+  flex-shrink: 0;
+  width: 190px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.carousel-item img {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.carousel-item:hover {
+  transform: scale(1.1);
+  z-index: 5;
+}
+.carousel-item:hover img {
+  box-shadow: 0 8px 20px rgba(255,0,0,0.6);
+}
+.rank-number {
+  position: absolute;
+  bottom: 10px;
+  left: -30px;
+  font-size: 5rem;
+  font-weight: bold;
+  color: rgb(31, 28, 28);
+  -webkit-text-stroke: 2px rgb(233, 230, 230);
+  z-index: 2;
+}
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 5px;
+  z-index: 3;
+  transition: background 0.3s ease;
+}
+.carousel-btn:hover {
+  background: rgba(255,0,0,0.8);
+}
+.carousel-btn.left {
+  left: 0;
+}
+.carousel-btn.right {
+  right: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .carousel-item {
+    width: 140px;
+  }
+}
+@media (max-width: 768px) {
+  .carousel-item {
+    width: 120px;
+  }
+  .rank-number {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 480px) {
+  .carousel-item {
+    width: 100px;
+  }
+  .rank-number {
+    font-size: 1.2rem;
+  }
+}
+
+.item4 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-image: url(./black.jpeg);
+  background-size: cover;
+  padding: 50px 20px;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* IMAGE SIDE */
+.image4 {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  opacity: 0;
+  transform: translateX(-50px) scale(0.95);
+  animation: slideInLeft 1s ease forwards;
+}
+
+.image4 img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: transform 0.5s ease;
+}
+
+.image4 img:hover {
+  transform: scale(1.08);
+}
+
+/* TEXT SIDE */
+.text44 {
+  flex: 1;
+  max-width: 600px;
+  opacity: 0;
+  transform: translateX(50px);
+  animation: slideInRight 1s ease forwards;
+}
+
+.text44 h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.text44 p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+/* ANIMATIONS */
+@keyframes slideInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .item4 {
+    flex-direction: column;
+    text-align: center;
+  }
+  .image4, .text44 {
+    transform: none;
+    animation: none;
+    opacity: 1;
+  }
+}
+/* Main container */
+.item5 {
+  display: flex;
+  flex-direction: column;
+  background-image: url(./black.jpeg);
+  background-size: cover;
+  background-position: center;
+  padding: 40px 20px;
+  color: white;
+}
+
+/* Title */
+.text5 h1 {
+  font-size: 50px;
+  font-weight: 900;
+  margin: 30px auto;
+  text-align: center;
+}
+
+/* FAQ container */
+.text55 {
+  margin: 0 auto;
+  max-width: 900px;
+  font-weight: 500;
+}
+
+/* FAQ questions */
+.text55 summary {
+  background-color: #26262a;
+  font-weight: 770;
+  padding: 15px;
+  margin-top: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect on summary */
+.text55 summary:hover {
+  background-color: grey;
+  transform: scale(1.01);
+}
+
+/* FAQ answers */
+.text55 p {
+  padding: 15px;
+  background: #1b1b1b;
+  margin: 0;
+  border-radius: 0 0 4px 4px;
+  line-height: 1.5;
+  font-size: 16px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* When details is open */
+details[open] p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover effect on paragraph text */
+.text55 p:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Email input section */
+.box-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  color: white;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.box-container p {
+  font-size: 20px;
+  flex: 1 1 100%;
+}
+
+.box-container input {
+  padding: 14px;
+  background: transparent;
+  border: 1px solid #ccc;
+  color: white;
+  border-radius: 4px;
+}
+
+.box-container button {
+  background-color: red;
+  padding: 14px 20px;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.box-container button:hover {
+  background-color: rgb(100, 45, 45);
+}
+
+/* Footer responsive */
+.footer-container {
+  background-color: black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  padding: 40px 20px;
+}
+
+.footer-container a {
+  color: aliceblue;
+  padding: 8px 0;
+  transition: color 0.3s ease;
+}
+
+.footer-container a:hover {
+  color: red;
+}
+
+/* Footer sections */
+.f1, .f2, .f3, .f4 {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .text5 h1 {
+    font-size: 32px;
+    margin-left: 0;
+    text-align: center;
+  }
+  .text55 {
+    margin: 0 10px;
+  }
+  .box-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .box-container input {
+    margin-left: 0;
+    width: 90%;
+  }
+}
+
+
+
+  </style>
+</head>
+<body class="bg-black text-white">
+
+  <!-- Background -->
+  <div class="relative min-h-screen bg-center bg-cover flex flex-col justify-center px-4 sm:px-8" style="background-image: url('./b1.jpg');">
+
+    <!-- Fixed Top Bar -->
+    <header class="absolute top-0 left-0 w-full flex justify-between items-center p-4 sm:p-6">
+      <img src="./netflix-logo.png" alt="Netflix Logo" class="w-24 sm:w-32 md:w-40 logo-hover cursor-pointer transition-transform">
+      <button class="bg-red-600 px-3 py-1 text-sm sm:px-4 sm:py-2 sm:text-base rounded font-bold hover:bg-red-800 transition">
+        Sign In
+      </button>
+    </header>
+
+    <!-- Text Section -->
+    <div class="text-center mt-28 sm:mt-32">
+      <h1 class="text-2xl sm:text-3xl md:text-5xl font-bold">Unlimited movies, TV shows and more</h1>
+      <p class="mt-4 text-sm sm:text-lg">Watch anywhere. Cancel anytime.</p>
+      <p class="mt-2 text-xs sm:text-md">Ready to watch? Enter your email to create or restart your membership.</p>
+    </div>
+
+    <!-- Email Box -->
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-3 mt-6 px-4">
+      <input type="email" placeholder="Email address" class="px-3 py-2 sm:px-4 sm:py-3 w-full sm:w-80 bg-transparent border border-white rounded input-focus text-white placeholder-gray-300 text-sm sm:text-base">
+      <button class="bg-red-600 px-4 py-2 sm:px-6 sm:py-3 rounded font-bold hover:bg-red-800 transition text-sm sm:text-base w-full sm:w-auto">
+        Get Started
+      </button>
+    </div>
+  </div>
+
+  <!-- TV Section -->
+  <section class="tv-section">
+    <div class="tv-content">
+      <div class="tv-text">
+        <h1>Enjoy on your TV</h1>
+        <p>Watch on Smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.</p>
+      </div>
+      <div class="tv-container">
+        <img src="./tv (1).png" alt="TV" class="tv-image">
+        <video class="tv-video" autoplay muted loop>
+          <source src="./video-tv-0819.m4v" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+
+<section class="px-4 pb-12 bg-black">
+
+
+  <div class="carousel-container">
+       <h2 class="trending-title text-white text-xl sm:text-2xl mb-4">Trending Now</h2>
+    <button class="carousel-btn left">&#10094;</button>
+    
+    <div class="carousel-track">
+        
+      <div class="carousel-item">
+        <span class="rank-number">1</span>
+        <img src="./w1.jpg" alt="">
+      </div>
+      <div class="carousel-item">
+        <span class="rank-number">2</span>
+        <img src="./w2.jpg" alt="">
+      </div>
+         <div class="carousel-item">
+        <span class="rank-number">3</span>
+        <img src="./w3.jpg" alt="">
+      </div>
+      <div class="carousel-item">
+        <span class="rank-number">4</span>
+        <img src="./w88.jpg" alt="">
+      </div>
+      <div class="carousel-item">
+        <span class="rank-number">5</span>
+        <img src="./w5.jpg" alt="">
+      </div>
+      <div class="carousel-item">
+        <span class="rank-number">6</span>
+        <img src="./w6.jpg" alt="">
+      </div>
+      <div class="carousel-item">
+        <span class="rank-number">7</span>
+        <img src="./999.jpg" alt="">
+      </div>
+      <div class="carousel-item">
+        <span class="rank-number">8</span>
+        <img src="./9999.jpg" alt="">
+      </div>
+      <div class="carousel-item">
+        <span class="rank-number">9</span>
+        <img src="./11.jpg" alt="">
+      </div>
+     
+    </div>
+    
+    <button class="carousel-btn right">&#10095;</button>
+  </div>
+
+</section>
+
+<!-- Carousel JS -->
+<script>
+    const track = document.querySelector('.carousel-track');
+const btnLeft = document.querySelector('.carousel-btn.left');
+const btnRight = document.querySelector('.carousel-btn.right');
+
+let position = 0;
+let cardWidth = document.querySelector('.carousel-item').offsetWidth + 20;
+
+btnRight.addEventListener('click', () => {
+  const maxScroll = track.scrollWidth - track.clientWidth;
+  const moveAmount = Math.min(cardWidth, maxScroll - Math.abs(position));
+
+  if (Math.abs(position) < maxScroll) {
+    position -= moveAmount;
+    track.style.transform = `translateX(${position}px)`;
+  }
+});
+
+btnLeft.addEventListener('click', () => {
+  const moveAmount = Math.min(cardWidth, Math.abs(position));
+  
+  if (position < 0) {
+    position += moveAmount;
+    track.style.transform = `translateX(${position}px)`;
+  }
+});
+
+window.addEventListener('resize', () => {
+  cardWidth = document.querySelector('.carousel-item').offsetWidth + 20;
+});
+
+</script>
+<div class="item4">
+  <div class="image4">
+    <img src="./kids.png" alt="Kids Section">
+  </div>
+  <div class="text44">
+    <h1>Create profiles for kids</h1>
+    <p>Send kids on an adventure with their favourite characters in a space made just for them — free with your membership</p>
+  </div>
+</div>
+
+</DIV>
+     <div class="item5"> 
+        <div class="text5">
+            <h1><b>Frequently Asked Question</b></h1>
+        </div>
+        <div class="maintext">
+        <div class="text55">
+            <details>
+                <summary> What is Netflix?</summary>
+                <p>Netflix is a streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.
+                    You can watch as much as you want, whenever you want without a single commercial – all for one low monthly price. There's always something new to discover and new TV shows and movies are added every week!</p>
+            </details>
+            <details>
+                <summary> How much does it cost?</summary>
+                <p> Watch Netflix on your smartphone, tablet, Smart TV, laptop, or streaming device, all for one fixed monthly fee. Plans range from Rs 250 to Rs 1,100 a month. No extra costs, no contracts.</p>
+            </details>
+
+
+            <details>
+                <summary>  Where can I watch?</summary>
+                <p>Watch anywhere, anytime. Sign in with your Netflix account to watch instantly on the web at netflix.com from your personal computer or on any internet-connected device that offers the Netflix app, including smart TVs, smartphones, tablets, streaming media players and game consoles.
+                    You can also download your favorite shows with the iOS or Android app. Use downloads to watch while you're on the go and without an internet connection. Take Netflix with you anywhere.</p>
+            </details>
+        <details>
+            <summary> How do I cancel?</summary>
+            <p>Netflix is flexible. There are no pesky contracts and no commitments. You can easily cancel your account online in two clicks. There are no cancellation fees – start or stop your account anytime.</p>
+        </details>
+            <details>
+                <summary> Is Netflix good for kids?</summary>
+                <p>The Netflix Kids experience is included in your membership to give parents control while kids enjoy family-friendly TV shows and movies in their own space.
+
+                    Kids profiles come with PIN-protected parental controls that let you restrict the maturity rating of content kids can watch and block specific titles you don’t want kids to see.</p>
+            </details>
+        </div>
+        </div>
+            <div class="box-container">
+                <P>Ready to watch? Enter your email to create or restart membership</P>
+
+                <input type="mail" placeholder="Email address" required>
+                <button> Get Started</button>
+            </div>
+</div>
+</body>
+ <div class="footer-container">
+<div class="f1">
+    <a href=""> Questions?Contact US</a>
+    <a href=""> FAQ</a>
+    <a href="">Invester Relations</a>
+    <a href=""> Privacy</a>
+    <a href=""> Speed Test </a>
+    <a href=""> Netflix Pakistan</a>
+</div>
+<div class="f2">
+   
+    <a href=""> HelP centre</a>
+    <a href="">Jobs</a>
+    <a href=""> Cookie preferences</a>
+    <a href=""> Legal Notices </a>
+</div>
+<div class="f3">
+    <a href="">Account</a>
+    <a href=""> Ways to Watch</a>
+    <a href=""> Corporate Information </a>
+    <a href=""> Only on Netflix</a>
+</div>
+<div class="f4">
+    <a href="">Media Center</a>
+    <a href=""> Terms of Use</a>
+    <a href=""> Contact Us</a>
+</div>
+</div>
+</footer>
+</html>
+
+
+
+
+
+</body>
+</html>
